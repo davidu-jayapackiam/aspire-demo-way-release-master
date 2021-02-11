@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    tenantId: {{ .Values.tenant.id }}
+    waylayComponent: accounts
+    component: ui
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      annotations:
+        date/deploy-date: {{ now | quote }}
+      labels:
+        app: {{ template "fullname" . }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.internalPort }}
+        env:
+        - name: REACT_APP_AUTH_URL
+          value: {{ default "http://localhost" .Values.config.authUrl | quote }}
+        - name: REACT_APP_LOGIN_URL
+          value: {{ .Values.config.loginUrl | quote }}
+        - name: REACT_APP_WAYLAY_DOMAIN
+          value: {{ default "" .Values.config.waylayDomain | quote }}
+        - name: REACT_APP_RAVEN_DSN
+          value: {{ default "" .Values.config.ravenDSN | quote }}
+        livenessProbe:
+          httpGet:
+            path: /login
+            port: {{ .Values.service.internalPort }}
+        readinessProbe:
+          httpGet:
+            path: /login
+            port: {{ .Values.service.internalPort }}
+        resources:
+{{ toYaml .Values.resources | indent 12 }}
