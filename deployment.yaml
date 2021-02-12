@@ -24,7 +24,7 @@ spec:
         - containerPort: {{ .Values.service.internalPort }}
         env:
         - name: REACT_APP_AUTH_URL
-          value: {{ default "http://localhost" .Values.config.authUrl | quote }}
+          value: {{ default "http://127.0.0.1" .Values.config.authUrl | quote }}
         - name: REACT_APP_LOGIN_URL
           value: {{ .Values.config.loginUrl | quote }}
         - name: REACT_APP_WAYLAY_DOMAIN
