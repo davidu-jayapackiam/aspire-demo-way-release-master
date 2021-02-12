@@ -1,6 +1,6 @@
 stage('Deliver for development') {
             when {
-                branch 'development'
+                branch 'test'
             }
             steps {
                 sh './jenkins/scripts/deliver-for-development.sh'
