@@ -14,7 +14,7 @@ spec:
       annotations:
         date/deploy-date: {{ now | quote }}
       labels:
-        app: {{ template "fullname" . }}
+        app: {{ template "FullName" . }}
     spec:
       containers:
       - name: {{ .Chart.Name }}
