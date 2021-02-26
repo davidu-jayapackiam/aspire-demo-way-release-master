@@ -123,3 +123,4 @@ auth-ui:
     waylayDomain: ''
     ## Enable when using Identity service
     ##loginUrl: https://login-testing.waylay.io
+    loginUrl: https://login-testing.waylay.io
