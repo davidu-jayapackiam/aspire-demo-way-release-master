@@ -49,7 +49,7 @@ auth-api:
       connectionName: ''
       serviceAccount: {}
 
-  sentryDSN: ''
+  sentryDSN: 'demo1.dev.yokogawa.com'
 
   configFiles: {}
   ## Example config
