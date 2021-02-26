@@ -1,0 +1,125 @@
+auth-api:
+  tenant:
+    id: multitenant
+
+  replicaCount: 1
+
+  resources: {}
+    # Example
+    # requests:
+    #   cpu: 30m
+
+  statsdTenant: 'waylay-testing'
+  statsdHost: ''
+  statsdPort: ''
+
+  image:
+    repository: eu.gcr.io/quiet-mechanic-140114/auth-api
+    tag: stable
+  
+  environment: production
+  
+  service:
+    name: auth-api
+    type: NodePort
+    externalPort: 80
+    internalPort: 3000
+
+  config:
+    authUIUrl: ''
+    mandrillApiKey: ''
+    publicUrl: ''
+    ## initUser and waylayDomain can be set when performing auth init. 
+    initUser: '' 
+    waylayDomain: ''
+
+    customTemplates:
+      enabled: false
+
+  postgres:
+    username: ''
+    password: ''    
+    databaseName: ''
+    # Host can be 127.0.0.1 when using Google CloudSQL + proxy sidecar
+    host: ''
+
+    ## Enable google when using Google CloudSQL
+    google:
+      enabled: true
+      connectionName: ''
+      serviceAccount: {}
+
+  sentryDSN: ''
+
+  configFiles: {}
+  ## Example config
+  # configFiles:
+  #   production.yaml: |
+  #     sso:
+  #       ping:
+  #         type: oauth2
+  #         name: Ping
+  #         icon: https://www.pingidentity.com/etc/designs/pic6/assets/images/favicon-new.png
+  #         tenant: tenantName.domain.ext
+
+  #         auth:
+  #           tokenHost: 'https://TokenHost'
+  #           tokenPath: '/as/token.oauth2'
+  #           authorizeHost: 'https://TokenAuthHost'
+  #           authorizePath: '/as/authorization.oauth2'
+
+  #         client:
+  #           id: 'ClientID'
+  #           secret: 'ClientSecret'
+
+  #         scope: []
+  #         redirectURL: https://auth-api.domain.ext/sso/oauth2/callback
+
+  #     session:
+  #       ## Create a sessions secret; openssl rand -base64 32
+  #       secret: ''
+      
+  #     # Default tenant settings added to every tenant on create
+  #     default_tenant_settings:
+  #       license.timeseries: true
+  #       license.messagecache: true
+  #       license.tsanalytics: false
+
+  #     # Branding config
+  #     branding:
+  #       # Default returned if a tenant doesn't have any branding configured in settings
+  #       defaults:
+  #         name: Waylay
+  #         logo: https://static.waylay.io/branding/waylay-logo-without-tagline.svg
+  #         favicon: https://static.waylay.io/branding/favicon.png
+  #         link: https://www.waylay.io/
+
+  audit:
+    serviceName: 'none'
+
+auth-ui:
+  tenant:
+    id: multitenant
+
+  replicaCount: 1
+  
+  resources: {}
+    # Example
+    # requests:
+    #   cpu: 30m
+
+  image:
+    repository: eu.gcr.io/quiet-mechanic-140114/auth-ui
+    tag: stable
+  
+  service:
+    name: auth-ui
+    type: NodePort
+    externalPort: 80
+    internalPort: 2015
+  
+  config:
+    authUrl: ''
+    waylayDomain: ''
+    ## Enable when using Identity service
+    ##loginUrl: https://login-testing.waylay.io
