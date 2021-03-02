@@ -107,6 +107,8 @@ auth-ui:
     # Example
     # requests:
     #   cpu: 30m
+    cup: 30m
+    memory: 1024m
 
   image:
     repository: eu.gcr.io/quiet-mechanic-140114/auth-ui
@@ -124,4 +126,4 @@ auth-ui:
     ## Enable when using Identity service
     ##loginUrl: https://login-testing.waylay.io
     loginUrl: https://login-testing.waylay.io
-    authLoginUrl: https://auth-login-testing.waylay.io
+    demoAuthLoginUrl: https://auth-login-testing.waylay.io
